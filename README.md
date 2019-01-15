@@ -15,8 +15,8 @@ Environment config
     APP_ID=<nexmo application id>
     API_KEY=<nexmo api key>
     API_SECRET=<nexmo api secret>
-    NCCO_URL=https://your nexmo [ncco](https://developer.nexmo.com/voice/voice-api/ncco-reference) file
+    NCCO_URL=https://your nexmo (ncco)[https://developer.nexmo.com/voice/voice-api/ncco-reference] file
 
 ## private.key
 
-You need to save your Nexmo private key in the folder of klaus, named as private.key
+You need to save your Nexmo private key in the folder of klaus named `private.key`
