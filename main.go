@@ -20,6 +20,7 @@ var (
 	API_KEY    = os.Getenv("API_KEY")
 	API_SECRET = os.Getenv("API_SECRET")
 	APP_ID     = os.Getenv("APP_ID")
+	NCCO_URL   = os.Getenv("NCCO_URL")
 )
 
 func index(w http.ResponseWriter, r *http.Request) {
@@ -81,7 +82,7 @@ func sendKlaus(numberK string) {
 			Type:   "phone",
 			Number: "1234567890",
 		},
-		AnswerURL: []string{"https://roffe.nu/ncco.json"},
+		AnswerURL: []string{NCCO_URL},
 	}
 	callResp, resp, err := client.Call.CreateCall(callReq)
 	if err != nil {
