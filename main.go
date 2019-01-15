@@ -22,12 +22,11 @@ var (
 	APP_ID     = os.Getenv("APP_ID")
 )
 
-func sayhelloName(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello fren!") // write data to response
+func index(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello fren!")
 }
 
-func index(w http.ResponseWriter, r *http.Request) {
-	//fmt.Println("method:", r.Method) //get request method
+func klaus(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		t, _ := template.ParseFiles("templates/index.gtpl")
 		t.Execute(w, nil)
@@ -59,7 +58,7 @@ func nexmoResp(w http.ResponseWriter, r *http.Request) {
 
 func sendKlaus(numberK string) {
 
-	data, err := ioutil.ReadFile("private.key") //Your nexmo application private key
+	privateKey, err := ioutil.ReadFile("private.key")
 	if err != nil {
 		fmt.Println("File reading error", err)
 		return
@@ -67,8 +66,7 @@ func sendKlaus(numberK string) {
 	auth := nexmo.NewAuthSet()
 
 	auth.SetAPISecret(API_KEY, API_SECRET)
-
-	auth.SetApplicationAuth(APP_ID, data)
+	auth.SetApplicationAuth(APP_ID, privateKey)
 
 	client := nexmo.NewClient(http.DefaultClient, auth)
 
@@ -97,8 +95,8 @@ func sendKlaus(numberK string) {
 
 func main() {
 	cacheDB = cache.New(59*time.Minute, 1*time.Minute)
-	http.HandleFunc("/", sayhelloName) // setting router rule
-	http.HandleFunc("/klaus", index)
+	http.HandleFunc("/", index) // setting router rule
+	http.HandleFunc("/klaus", klaus)
 	http.HandleFunc("/nexmo", nexmoResp)
 	err := http.ListenAndServe(":9090", nil) // setting listening port
 	if err != nil {
