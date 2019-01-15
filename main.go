@@ -96,10 +96,10 @@ func sendKlaus(numberK string) {
 
 func main() {
 	cacheDB = cache.New(59*time.Minute, 1*time.Minute)
-	http.HandleFunc("/", index) // setting router rule
+	http.HandleFunc("/", index)
 	http.HandleFunc("/klaus", klaus)
 	http.HandleFunc("/nexmo", nexmoResp)
-	err := http.ListenAndServe(":9090", nil) // setting listening port
+	err := http.ListenAndServe(":9090", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
